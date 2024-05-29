@@ -1,12 +1,15 @@
+
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transaction;
+  final Function(String) onRemove;
 
   const TransactionList(
-    this.transaction, {
+    this.transaction,
+    this.onRemove, {
     super.key,
   });
 
@@ -64,6 +67,11 @@ class TransactionList extends StatelessWidget {
                       ),
                       subtitle: Text(
                         DateFormat('d MMM y').format(tr.date)
+                      ),
+                      trailing: IconButton(
+                        onPressed: () => onRemove(tr.id),
+                        icon: const Icon(Icons.delete),
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   );
